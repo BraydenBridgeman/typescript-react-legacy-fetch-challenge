@@ -1,6 +1,9 @@
 import React from 'react';
 import WeatherDisplay from './openWeather';
 
+const APIKey: string = "9cf41ee08e20c6e82d77c94d22694b64";
+const url: string = "https://api.openweathermap.org/data/2.5/weather";
+
 type LocateUser = {
     lat: number,
     long: number,
@@ -15,18 +18,16 @@ type LocateUser = {
     }
 }
 
-type weatherProp = {
-}
-
 interface Location {
-    coordinates: {
+    coords: {
         latitude: number,
         longitude: number
     }
 }
 
-const APIKey: string = "9cf41ee08e20c6e82d77c94d22694b64";
-const url: string = "https://api.openweathermap.org/data/2.5/weather";
+type weatherProp = {
+    // empty assignment type
+}
 
 class LocationOfUser extends React.Component <weatherProp, LocateUser> {
     constructor(props: weatherProp) {
@@ -47,21 +48,21 @@ class LocationOfUser extends React.Component <weatherProp, LocateUser> {
     }
 
     componentDidMount() {
-        const locationError = () => console.log("Location could not be found")
-        
-        const locationSuccessful = (location: Location) => {
-            console.log(location.coordinates)
+        const errorLocation = () => console.log('Error getting location data.')
+
+        const successLocation = (position: Location) => {
+            console.log(position.coords)
             this.setState({
-                lat: location.coordinates.latitude,
-                long: location.coordinates.longitude
+                lat: position.coords.latitude,
+                long: position.coords.longitude
             })
         }
 
         const locationStatus = () => {
-            navigator.geolocation.getCurrentPosition(locationSuccessful, locationError, {
-                enableHighAccuracy: true,
-                maximumAge: 30000,
-                timeout: 27000
+            navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { 
+                enableHighAccuracy: true, 
+                maximumAge: 0, 
+                timeout: 5000
             });
         }
 
@@ -83,6 +84,7 @@ class LocationOfUser extends React.Component <weatherProp, LocateUser> {
                     }))
                 })
         }
+        // call location and weather functions
         locationStatus();
         weatherStatus();
     };

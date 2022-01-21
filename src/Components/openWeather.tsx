@@ -14,19 +14,25 @@ type weatherProp = {
 
 function WeatherDisplay(props: weatherProp) {
     useEffect(() => {
-
+        document.title = `Weather in Your Location!`;
     }, [])
 
     return(
         <div>
             <ul>
-                <li>Description: {props.weather.description}</li>
-                <li>Temperature: {props.weather.temp} degrees</li>
-                <li>Feels Like: {props.weather.feels_like}</li>
-                <li>Low: {props.weather.temp_min} degrees</li>
-                <li>High: {props.weather.temp_max} degrees</li>
-                <li>Pressure: {props.weather.pressure}</li>
-                <li>Humidity: {props.weather.humidity}</li>
+                <h1>Description: {props.weather.description} in your area</h1>
+                <br></br>
+                <h2>Temperature: {props.weather.temp} degrees</h2>
+                <br></br>
+                <h2>Feels like: {props.weather.feels_like} degrees</h2>
+                <br></br>
+                <h2 style={{ color: 'blue' }}>Low: {props.weather.temp_min} degrees</h2>
+                <br></br>
+                <h2 style={{ color: 'red' }}>High: {props.weather.temp_max} degrees</h2>
+                <br></br>
+                <h2>Pressure: {props.weather.pressure} hPa</h2>
+                <br></br>
+                <h2>Humidity: {props.weather.humidity}%</h2>
             </ul>
         </div>
     );
