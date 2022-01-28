@@ -1,7 +1,6 @@
 import React from 'react';
 import WeatherDisplay from './openWeather';
 
-const APIKey: string = "9cf41ee08e20c6e82d77c94d22694b64";
 const url: string = "https://api.openweathermap.org/data/2.5/weather";
 
 interface Location {
@@ -67,7 +66,7 @@ class LocationOfUser extends React.Component <weatherProp, LocateUser> {
         }
 
         const weatherStatus = () => {
-            fetch(`${url}?lat=${this.state.lat}&lon=${this.state.long}&units=imperial&appid=${APIKey}`)
+            fetch(`${url}?lat=${this.state.lat}&lon=${this.state.long}&units=imperial&appid=${process.env.REACT_APP_KEY}`)
                 .then(res => res.json())
                 .then(res => {
                     this.setState(prevState => ({
@@ -85,7 +84,7 @@ class LocationOfUser extends React.Component <weatherProp, LocateUser> {
                 })
         }
         // call functions
-        // need to setTimeout as function is picking up this.state first.
+        // need to setTimeout as function is picking up this.state first. Let coordinates be found first.
         // fixed weatherStatus function
         locationStatus();
         setTimeout(weatherStatus, 1);
